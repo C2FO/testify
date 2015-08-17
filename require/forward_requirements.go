@@ -3,7 +3,7 @@ package require
 import (
 	"time"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/c2fo/testify/assert"
 )
 
 type Assertions struct {

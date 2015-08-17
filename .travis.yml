@@ -6,6 +6,10 @@ go:
   - 1.3
   - tip
 
+before_install:
+  - mv $HOME/gopath/src/github.com/C2FO $HOME/gopath/src/github.com/c2fo
+  - export PATH=$PATH:$HOME/gopath/bin
+
 script:
   - go test -v ./...
 
