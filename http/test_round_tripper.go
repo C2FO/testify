@@ -1,7 +1,7 @@
 package http
 
 import (
-	"github.com/stretchr/testify/mock"
+	"github.com/c2fo/testify/mock"
 	"net/http"
 )
 
