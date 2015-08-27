@@ -117,6 +117,12 @@ func TestEqual(t *testing.T) {
 	if !Equal(mockT, uint64(123), uint64(123)) {
 		t.Error("Equal should return true")
 	}
+	if !Equal(mockT, uint32(1), int32(1)) {
+		t.Error("Equal should return true")
+	}
+	if !Equal(mockT, int64(1001), uint32(1001)) {
+		t.Error("Equal should return true")
+	}
 
 }
 
