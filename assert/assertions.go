@@ -236,14 +236,16 @@ func IsType(t TestingT, expectedType interface{}, object interface{}, msgAndArgs
 	return true
 }
 
-// Equal asserts that two objects are equal.
+// Equal asserts that two objects are equal or convertable to the same types and equal.
 //
 //    assert.Equal(t, 123, 123, "123 and 123 should be equal")
+// 	  assert.Equal(t, uint32(123), int32(123), "123 and 123 should be equal")
 //
 // Returns whether the assertion was successful (true) or not (false).
 func Equal(t TestingT, expected, actual interface{}, msgAndArgs ...interface{}) bool {
 
-	if !ObjectsAreEqual(expected, actual) {
+	// still calls ObjectsAreEqual
+	if !ObjectsAreEqualValues(expected, actual) {
 		return Fail(t, fmt.Sprintf("Not equal: %#v (expected)\n"+
 			"        != %#v (actual)", expected, actual), msgAndArgs...)
 	}
@@ -252,21 +254,9 @@ func Equal(t TestingT, expected, actual interface{}, msgAndArgs ...interface{}) 
 
 }
 
-// EqualValues asserts that two objects are equal or convertable to the same types
-// and equal.
-//
-//    assert.EqualValues(t, uint32(123), int32(123), "123 and 123 should be equal")
-//
-// Returns whether the assertion was successful (true) or not (false).
+// Deprecated, use .Equal instead
 func EqualValues(t TestingT, expected, actual interface{}, msgAndArgs ...interface{}) bool {
-
-	if !ObjectsAreEqualValues(expected, actual) {
-		return Fail(t, fmt.Sprintf("Not equal: %#v (expected)\n"+
-			"        != %#v (actual)", expected, actual), msgAndArgs...)
-	}
-
-	return true
-
+	return Equal(t, expected, actual, msgAndArgs...)
 }
 
 // Exactly asserts that two objects are equal is value and type.
